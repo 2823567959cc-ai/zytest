@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>男朋友占有欲测试</title>
+<style>
+:root{--pink:#ff6b9d;--lpink:#ffe0ec;--purple:#c77dff;--bg:#fff5f8;--text:#3a3045;--t2:#7c6f8c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.ct{max-width:480px;margin:0 auto;padding:20px;min-height:100vh;display:flex;flex-direction:column}
+.cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cover .hi{font-size:72px;margin-bottom:16px;animation:hb 1.2s infinite}
+.cover h1{font-size:28px;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.cover .sub{color:var(--t2);font-size:14px;margin-bottom:32px}
+.btn{display:inline-block;padding:14px 48px;border:none;border-radius:30px;font-size:17px;font-weight:600;cursor:pointer;transition:all .3s;margin-top:20px}
+.btn-p{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 6px 24px rgba(199,125,255,.3)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(199,125,255,.45)}
+.btn-p:active{transform:scale(.96)}
+.quiz{display:none;flex:1;flex-direction:column}
+.quiz.on{display:flex}
+.pb{width:100%;height:6px;background:#f0dce4;border-radius:3px;margin-bottom:12px;overflow:hidden}
+.pb .pf{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:3px;transition:width .4s}
+.pi{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px;color:var(--t2)}
+.thermo{display:flex;align-items:center;gap:6px}
+.ttrack{width:80px;height:8px;background:#f0dce4;border-radius:4px;overflow:hidden}
+.tfill{height:100%;border-radius:4px;transition:width .5s,background .5s}
+.ctag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px}
+.ctag.so{background:#e8f4fd;color:#3b82f6}.ctag.dr{background:#fdf2f8;color:#ec4899}
+.ctag.pr{background:#fef3c7;color:#d97706}.ctag.me{background:#ede9fe;color:#7c3aed}
+.ctag.tr{background:#fee2e2;color:#dc2626}.ctag.wo{background:#d1fae5;color:#059669}
+.ctag.pa{background:#fce7f3;color:#be185d}.ctag.co{background:#e0e7ff;color:#4f46e5}
+.qt{font-size:19px;font-weight:600;line-height:1.6;margin-bottom:8px}
+.qos{font-size:13px;color:var(--t2);margin-bottom:20px;font-style:italic}
+.ops{display:flex;flex-direction:column;gap:10px}
+.op{padding:16px 18px;border:2px solid #f0dce4;border-radius:14px;cursor:pointer;transition:all .25s;font-size:15px;background:#fff}
+.op:hover{border-color:var(--pink);background:var(--lpink);transform:translateX(4px)}
+.op.sel{border-color:var(--pink);background:var(--lpink)}
+.op .ol{font-weight:700;color:var(--pink);margin-right:6px}
+.op .oos{display:block;font-size:12px;color:var(--t2);margin-top:4px;padding-left:18px}
+.nb{display:flex;gap:12px;margin-top:24px;justify-content:center}
+.btn-o{background:#fff;color:var(--pink);border:2px solid var(--pink);padding:10px 32px;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s}
+.btn-o:hover{background:var(--lpink)}
+.result{display:none;flex:1;flex-direction:column}
+.result.on{display:flex}
+.rh{text-align:center;padding:24px 0}
+.rg{font-size:48px;margin-bottom:4px}
+.rl{font-size:22px;font-weight:700;margin-bottom:4px}
+.rs{font-size:14px;color:var(--t2)}
+.rc{display:flex;justify-content:center;margin:8px 0}
+canvas{max-width:280px;max-height:280px}
+.ry{background:#fff;border-radius:16px;padding:20px;margin:12px 0;text-align:center}
+.ry p{font-size:15px;line-height:1.7}
+.rd{background:#fff;border-radius:16px;padding:20px;margin-bottom:12px}
+.rd h3{font-size:16px;margin-bottom:12px;color:var(--pink)}
+.db{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dl{width:60px;font-size:13px;text-align:right;color:var(--t2);flex-shrink:0}
+.dt{flex:1;height:10px;background:#f0dce4;border-radius:5px;overflow:hidden}
+.df{height:100%;border-radius:5px;transition:width .8s}
+.ds{width:36px;font-size:13px;font-weight:700;text-align:center;flex-shrink:0}
+.ss{text-align:center;margin:12px 0 24px}
+.btn-s{background:linear-gradient(135deg,#48c774,#5db9ff);color:#fff;padding:14px 40px;border:none;border-radius:30px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(72,199,116,.3)}
+.btn-s:hover{transform:translateY(-2px)}
+.btn-r{background:#fff;color:var(--t2);border:1px solid #e0d4dc;padding:12px 36px;border-radius:30px;font-size:14px;cursor:pointer}
+.btn-r:hover{border-color:var(--pink);color:var(--pink)}
+@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+</style>
+</head>
+<body>
+<div class="ct">
+<div class="cover" id="cover">
+<div class="hi">💘</div>
+<h1>男朋友占有欲测试</h1>
+<p class="sub">40道场景题  ·  科学测量  ·  仅供娱乐</p>
+<button class="btn btn-p" id="btnStart">开始测试</button>
+</div>
+
+<div class="quiz" id="quiz">
+<div class="pb"><div class="pf" id="pf"></div></div>
+<div class="pi">
+<span id="pt">1 / 40</span>
+<div class="thermo">
+<span style="font-size:11px;color:var(--t2)">占有欲</span>
+<div class="ttrack"><div class="tfill" id="tf"></div></div>
+</div>
+</div>
+<span class="ctag" id="ctag"></span>
+<div class="qt" id="qt"></div>
+<div class="qos" id="qos"></div>
+<div class="ops" id="ops"></div>
+<div class="nb">
+<button class="btn-o" id="btnPrev" style="display:none">上一题</button>
+<button class="btn btn-p" id="btnNext">下一题</button>
+</div>
+</div>
+
+<div class="result" id="result">
+<div class="rh">
+<div class="rg" id="rg"></div>
+<div class="rl" id="rl"></div>
+<div class="rs" id="rs"></div>
+</div>
+<div class="rc"><canvas id="radar"></canvas></div>
+<div class="ry"><p id="ryp"></p></div>
+<div class="rd" id="rd"></div>
+<div class="ss">
+<button class="btn-s" id="btnShare">生成分享卡片</button>
+<br><br>
+<button class="btn-r" id="btnRestart">再测一次</button>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+var questions = [
+{q:"你和男性朋友单独吃饭（正常社交），他会？",os:"嘴上说着没关系，筷子快把碗戳穿了",cat:"社交边界",cls:"so",opts:[
+{l:"A",t:"完全不在意，还问你们吃了什么好吃的",os:"仿佛在听天气预报",s:1},
+{l:"B",t:"有点介意，但不会说什么",os:"空气里有一丝微妙",s:2},
+{l:"C",t:"事后暗示你以后少单独和男生吃饭",os:"醋意已送达，请查收",s:3},
+{l:"D",t:"直接要求你以后不许单独和异性吃饭",os:"这是通知，不是商量",s:4}
+]},
+{q:"公司团建要过夜，他第一反应是？",os:"这次不是吃醋，是吃雷",cat:"社交边界",cls:"so",opts:[
+{l:"A",t:"祝你玩得开心，记得发照片",os:"内心毫无波澜",s:1},
+{l:"B",t:"问清楚有哪些人参加，住什么酒店",os:"在做风险评估",s:2},
+{l:"C",t:"不高兴但忍着，期间频繁发消息问你在干嘛",os:"远程监控已开启",s:3},
+{l:"D",t:"坚决不同意，说有男同事就不行",os:"一票否决权",s:4}
+]},
+{q:"你和一个男生聊得很开心，他走过来会？",os:"空气中飘来一股酸味",cat:"社交边界",cls:"so",opts:[
+{l:"A",t:"自然地加入聊天，还很友好",os:"格局打开",s:1},
+{l:"B",t:"默默在旁边等你们聊完",os:"用眼神在刷存在感",s:2},
+{l:"C",t:"直接揽住你的腰，宣示主权",os:"领土标记行为",s:3},
+{l:"D",t:"当场黑脸，事后质问你和他什么关系",os:"醋坛子直接炸了",s:4}
+]},
+{q:"你的男闺蜜失恋了找你喝酒倾诉，他？",os:"男闺蜜三个字就是原罪",cat:"社交边界",cls:"so",opts:[
+{l:"A",t:"觉得你够义气，还让你多陪陪他",os:"这胸怀能装下一个太平洋",s:1},
+{l:"B",t:"有点不舒服但理解，建议叫上他一起",os:"曲线救国策略",s:2},
+{l:"C",t:"让你去但限定时间，每隔半小时确认",os:"定时炸弹模式",s:3},
+{l:"D",t:"坚决不准，说孤男寡女像什么话",os:"男闺蜜等于情敌",s:4}
+]},
+{q:"你和男性同事一起出差两天，他？",os:"两天，足够脑补一部连续剧了",cat:"社交边界",cls:"so",opts:[
+{l:"A",t:"完全放心，让你安心工作",os:"信任值拉满",s:1},
+{l:"B",t:"嘱咐你注意安全，晚上视频一下",os:"合理关心",s:2},
+{l:"C",t:"要求你随时报备：在哪、和谁、几点回房",os:"GPS人形定位",s:3},
+{l:"D",t:"试图让你推掉，或者一定要跟你一起去",os:"要么别去，要么带上我",s:4}
+]},
+{q:"你穿了件吊带裙出门，他说？",os:"裙子越短，血压越高",cat:"穿着与外在",cls:"dr",opts:[
+{l:"A",t:"好看！还帮你拍照",os:"审美在线，占有欲离线",s:1},
+{l:"B",t:"好看是好看，但外面披件外套吧",os:"委婉版：你不许穿",s:2},
+{l:"C",t:"下次别穿这个了，太露了",os:"直接颁布着装令",s:3},
+{l:"D",t:"当场让你换掉，不然不出门",os:"着装审查委员会主席",s:4}
+]},
+{q:"你想去染个夸张的发色（粉/蓝/紫），他的态度？",os:"头发颜色也要审批？",cat:"穿着与外在",cls:"dr",opts:[
+{l:"A",t:"你自己的头发自己决定，染完发照片给他看",os:"尊重个人选择",s:1},
+{l:"B",t:"说不太喜欢太扎眼的颜色，但随你",os:"表达意见但不干涉",s:2},
+{l:"C",t:"强烈反对，说染那种颜色不像正经人",os:"头发颜色也上纲上线",s:3},
+{l:"D",t:"警告你染了就分手",os:"头发和爱情二选一",s:4}
+]},
+{q:"你健身教练是男的，指导时肢体接触，他？",os:"教练碰一下等于在他雷区蹦迪",cat:"穿着与外在",cls:"dr",opts:[
+{l:"A",t:"觉得那是专业指导，不在意",os:"理性成年人",s:1},
+{l:"B",t:"稍微有点不舒服，但不会说",os:"忍了，但记在小本本上",s:2},
+{l:"C",t:"让你换女教练，或者他来陪你健身",os:"解决方案：换人或陪同",s:3},
+{l:"D",t:"直接冲到健身房盯着教练",os:"真人线下PK预警",s:4}
+]},
+{q:"你在朋友圈发了张泳装照，他？",os:"评论区已在脑中炸开",cat:"穿着与外在",cls:"dr",opts:[
+{l:"A",t:"点赞并评论\u201c我女朋友真好看\u201d",os:"自信boy",s:1},
+{l:"B",t:"私聊说好看但下次别发了",os:"嘴上夸着手上管着",s:2},
+{l:"C",t:"让你立刻删掉",os:"泳装等于禁止公开展示",s:3},
+{l:"D",t:"大吵一架，说你这样别人怎么看你",os:"你的身体等于他的颜面",s:4}
+]},
+{q:"你化妆比以前更精致出门，他第一句问什么？",os:"口红涂那么好看给谁看？",cat:"穿着与外在",cls:"dr",opts:[
+{l:"A",t:"今天心情很好啊，美美的",os:"会夸但不会多想",s:1},
+{l:"B",t:"今天什么日子啊化这么好看",os:"试探性提问",s:2},
+{l:"C",t:"去见谁啊？",os:"这个问题本身就是答案",s:3},
+{l:"D",t:"你是不是喜欢上别人了？",os:"口红等于出轨信号",s:4}
+]},
+{q:"你手机屏幕亮了，他会下意识去看吗？",os:"条件反射堪比膝跳反应",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"完全不会，那是你的隐私",os:"边界感王者",s:1},
+{l:"B",t:"偶尔瞟一眼，但不会追问",os:"人类的正常好奇心",s:2},
+{l:"C",t:"每次都看，看到异性名字立刻追问",os:"手机等于情报终端",s:3},
+{l:"D",t:"拿起来打开看，还觉得理所当然",os:"你的手机等于他的手机",s:4}
+]},
+{q:"你洗澡时手机放桌上，他会？",os:"淋浴间的水声是他的作案BGM",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"碰都不碰，那不是他的东西",os:"君子一枚",s:1},
+{l:"B",t:"不会翻，但如果响了会帮你看看谁的消息",os:"合理帮忙",s:2},
+{l:"C",t:"忍不住翻了下聊天列表",os:"好奇心战胜了道德感",s:3},
+{l:"D",t:"定期检查你的手机，认为情侣间不该有秘密",os:"安检常态化",s:4}
+]},
+{q:"你换了手机密码，他多久会发现？",os:"密码变更等于一级警报",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"根本不关心你密码是什么",os:"他连自己的密码都忘",s:1},
+{l:"B",t:"下次用你手机时才发现，随口问一句",os:"偶然发现，平静处理",s:2},
+{l:"C",t:"当天就发现了，质问你为什么换密码",os:"每天都有在用你手机",s:3},
+{l:"D",t:"发现后大发雷霆，说你有事瞒着他",os:"换个密码等于有外遇",s:4}
+]},
+{q:"你删了和某异性的聊天记录（纯工作内容），他发现了？",os:"删除等于心虚，在他的逻辑里无解",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"压根不会发现，也不关心",os:"0关注度",s:1},
+{l:"B",t:"发现了但没觉得有什么",os:"钝感力选手",s:2},
+{l:"C",t:"质问为什么删，很介意",os:"删记录等于有问题",s:3},
+{l:"D",t:"认定你有猫腻，翻旧账翻一星期",os:"一删毁所有",s:4}
+]},
+{q:"他用玩笑的语气说\u201c把我指纹也录进去\u201d，你？",os:"看似玩笑，实则试探",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"他根本没说过这种话",os:"不存在的场景",s:1},
+{l:"B",t:"说过一次，你笑笑过去了，他也没再提",os:"玩笑到此为止",s:2},
+{l:"C",t:"说过好几次，感觉不是纯开玩笑",os:"试探逐渐认真",s:3},
+{l:"D",t:"你拒绝后他不高兴，说你不信任他",os:"你不录等于你心里有鬼",s:4}
+]},
+{q:"你深夜收到一条异性消息，他已读不回地看着你？",os:"深夜加异性等于红色警报",cat:"手机与隐私",cls:"pr",opts:[
+{l:"A",t:"他根本没注意，自己睡了",os:"睡眠质量太好了",s:1},
+{l:"B",t:"随口问一句谁啊，你说同事他就放心了",os:"问了但信了",s:2},
+{l:"C",t:"不说话但脸很臭，第二天还在介意",os:"冷暴力蓄力中",s:3},
+{l:"D",t:"直接拿过你手机看是谁，并要求你删掉",os:"当场执法",s:4}
+]},
+{q:"你的抖音评论区有男的夸你好看，他？",os:"互联网上的每一个赞都是假想敌",cat:"社交媒体",cls:"me",opts:[
+{l:"A",t:"无感，甚至和你一起看评论乐呵",os:"自信的人从不care评论区",s:1},
+{l:"B",t:"有点不爽但不说，默默点了个踩",os:"暗地反击",s:2},
+{l:"C",t:"在下面回\u201c她有男朋友了\u201d",os:"评论区执法",s:3},
+{l:"D",t:"让你删评论、拉黑那个人",os:"互联网清朗行动",s:4}
+]},
+{q:"他要求你把头像换成合照吗？",os:"头像等于数字世界的领土标记",cat:"社交媒体",cls:"me",opts:[
+{l:"A",t:"从没提过，头像你爱用什么用什么",os:"头像自由",s:1},
+{l:"B",t:"提过一次，但你说不想换他就没坚持",os:"试探失败，点到为止",s:2},
+{l:"C",t:"软磨硬泡让你换，说别人都不知道你有男朋友",os:"宣示主权需求强烈",s:3},
+{l:"D",t:"不换就闹别扭，说你不愿意公开他",os:"头像等于忠诚度指标",s:4}
+]},
+{q:"你发的朋友圈里出现了不认识的帅哥路人，他？",os:"背景路人也能引发海啸",cat:"社交媒体",cls:"me",opts:[
+{l:"A",t:"根本不会注意到背景里有什么",os:"视力选择性忽略",s:1},
+{l:"B",t:"注意到了但没当回事",os:"路人而已",s:2},
+{l:"C",t:"截图圈出来问你这是谁",os:"显微镜男孩",s:3},
+{l:"D",t:"让你删掉重发，把那个人裁掉",os:"连路人的醋都吃",s:4}
+]},
+{q:"他会在你的微博下面公开喊\u201c老婆\u201d宣誓主权吗？",os:"评论区等于他的主权公告栏",cat:"社交媒体",cls:"me",opts:[
+{l:"A",t:"从不，他觉得那是公共场合要低调",os:"体面人",s:1},
+{l:"B",t:"偶尔评论，但不是为了宣誓主权",os:"正常互动",s:2},
+{l:"C",t:"经常在你的每条动态下留类似评论",os:"实时标记领土",s:3},
+{l:"D",t:"不仅自己留，还要求你也去他的动态下互动",os:"双向领土互认协议",s:4}
+]},
+{q:"你的社交账号互关列表里有前男友，他？",os:"前男友三个字触发顶级警报",cat:"社交媒体",cls:"me",opts:[
+{l:"A",t:"从不检查你的关注列表",os:"不给自己添堵",s:1},
+{l:"B",t:"发现了但觉得那是你的过去，尊重",os:"理性战胜感性",s:2},
+{l:"C",t:"要求你取关，说看着不舒服",os:"合理范围内的不舒适",s:3},
+{l:"D",t:"大吵大闹，说你对他不忠",os:"过去式等于现在进行时的威胁",s:4}
+]},
+{q:"他没提前打招呼就去你公司楼下等你下班，你？",os:"惊喜or惊吓？",cat:"行踪与时间",cls:"tr",opts:[
+{l:"A",t:"他从没这么做过",os:"尊重你的空间",s:1},
+{l:"B",t:"偶尔一次，真的只是惊喜",os:"浪漫但克制",s:2},
+{l:"C",t:"经常突然出现，你感觉被监视",os:"打着惊喜旗号的抽查",s:3},
+{l:"D",t:"每天必须接你下班，你说不用他就生气",os:"接送等于管控",s:4}
+]},
+{q:"你和闺蜜去音乐节玩到凌晨，他的消息频率是？",os:"你的手机震得比音乐节还嗨",cat:"行踪与时间",cls:"tr",opts:[
+{l:"A",t:"发了句\u201c玩得开心，到家说一声\u201d就没再打扰",os:"令人舒适的距离感",s:1},
+{l:"B",t:"偶尔问一句到哪了、人多不多注意安全",os:"合理关心频率",s:2},
+{l:"C",t:"半小时一条消息，还打了两三个电话",os:"焦虑值逐渐攀升",s:3},
+{l:"D",t:"消息轰炸加视频查岗，你回慢了就发火",os:"你是在玩还是在坐牢？",s:4}
+]},
+{q:"你两小时没回微信，打开发现未读消息数？",os:"两小时，对他来说等于两年",cat:"行踪与时间",cls:"tr",opts:[
+{l:"A",t:"0条，他在忙自己的事",os:"各自精彩",s:1},
+{l:"B",t:"1-2条，问你在干嘛",os:"正常询问",s:2},
+{l:"C",t:"10多条，从\u201c在吗\u201d到\u201c你是不是不想理我\u201d到\u201c好吧我懂了\u201d",os:"内心戏拉满",s:3},
+{l:"D",t:"几十条加10个未接来电，以为你出事了",os:"已脑补一整部悬疑剧",s:4}
+]},
+{q:"他说\u201c你去哪我都陪你去\u201d，是真的吗？",os:"翻译：你去哪我都要跟着",cat:"行踪与时间",cls:"tr",opts:[
+{l:"A",t:"只是情话，你有自己的空间",os:"会说但不会真这么做",s:1},
+{l:"B",t:"多数时候尊重你独处，偶尔想陪",os:"大部分时候是情话",s:2},
+{l:"C",t:"他真的会跟，和闺蜜逛街他也要坐旁边等",os:"这不是情话，是预告",s:3},
+{l:"D",t:"你任何单独行动他都不放心，必须陪同",os:"你是他的跟团游项目",s:4}
+]},
+{q:"你想一个人去旅行几天，他？",os:"一个人旅行？这三个词组合在一起就是错误",cat:"行踪与时间",cls:"tr",opts:[
+{l:"A",t:"支持，觉得独处是很好的体验",os:"灵魂伴侣级理解",s:1},
+{l:"B",t:"有点失落但尊重你的决定",os:"不舍但放手",s:2},
+{l:"C",t:"强烈反对，说一个人旅行太危险",os:"拿安全当理由",s:3},
+{l:"D",t:"说你要一个人去就是不在乎他的感受",os:"情绪绑架",s:4}
+]},
+{q:"你的直属领导是男性且经常加班对接，他？",os:"男领导等于危险，等式成立",cat:"工作与事业",cls:"wo",opts:[
+{l:"A",t:"完全理解，那是工作",os:"把工作和感情分得很清",s:1},
+{l:"B",t:"有点介意但不会表现出来",os:"隐忍型",s:2},
+{l:"C",t:"经常暗示你换工作或者换部门",os:"解决方案：让你走人",s:3},
+{l:"D",t:"让你辞职，他来养你",os:"终极控制套餐",s:4}
+]},
+{q:"你拿到了一个很好的外派机会（异地），他？",os:"外派等于异地等于分手倒计时",cat:"工作与事业",cls:"wo",opts:[
+{l:"A",t:"全力支持，觉得对你的职业发展很重要",os:"事业粉男友",s:1},
+{l:"B",t:"不舍但理解，一起商量异地怎么维持",os:"理性面对",s:2},
+{l:"C",t:"强烈希望你放弃，说异地恋太难了",os:"用感情绑架职业选择",s:3},
+{l:"D",t:"直接要求你在机会和他之间选一个",os:"终极二选一",s:4}
+]},
+{q:"客户是男的送你一份礼物表示感谢，他？",os:"男客户约等于潜在竞争者",cat:"工作与事业",cls:"wo",opts:[
+{l:"A",t:"觉得你工作能力强，替你开心",os:"为你骄傲",s:1},
+{l:"B",t:"让你收下但别太亲近那个客户",os:"祝福中带着一丝警惕",s:2},
+{l:"C",t:"问你客户为什么只送你，别人有没有",os:"在找特殊性",s:3},
+{l:"D",t:"让你退回去，说无事献殷勤非奸即盗",os:"全世界的男人都图谋不轨",s:4}
+]},
+{q:"你年会中奖和男主持人合影上了公司公众号，他？",os:"一张合影够他分析三天",cat:"工作与事业",cls:"wo",opts:[
+{l:"A",t:"替你高兴，还转发到朋友圈炫耀",os:"骄傲.jpg",s:1},
+{l:"B",t:"调侃一句\u201c你俩站挺近啊\u201d，但没当真",os:"玩笑式吃醋",s:2},
+{l:"C",t:"认真研究那张照片，问你和他什么关系",os:"合影等于可疑",s:3},
+{l:"D",t:"让你找公司把照片删了",os:"为了醋意大闹公司公众号",s:4}
+]},
+{q:"你说想辞职创业，他第一个担心的是什么？",os:"他担心的可能不是钱",cat:"工作与事业",cls:"wo",opts:[
+{l:"A",t:"资金够不够、计划周不周全",os:"关注实际问题",s:1},
+{l:"B",t:"你会不会太累、压力大不大",os:"关心你的状态",s:2},
+{l:"C",t:"你创业要接触很多人，男的肯定不少",os:"商业约等于社交约等于危险",s:3},
+{l:"D",t:"不同意，说女人就该安稳点",os:"控制加刻板印象叠满",s:4}
+]},
+{q:"你无意中提到前任的名字，他？",os:"那个名字等于伏地魔，不可说",cat:"过去与前任",cls:"pa",opts:[
+{l:"A",t:"完全没反应，继续聊别的",os:"内心毫无波动",s:1},
+{l:"B",t:"停顿了一下但很快恢复正常",os:"短暂波动，迅速平复",s:2},
+{l:"C",t:"脸色变了，沉默很久",os:"那个名字有毒",s:3},
+{l:"D",t:"当场发火，说你是不是还想着他",os:"提名字等于余情未了",s:4}
+]},
+{q:"他问过你\u201c我和他谁更好\u201d这种问题吗？",os:"送命题，怎么答都是错",cat:"过去与前任",cls:"pa",opts:[
+{l:"A",t:"从没问过，他不关心这些",os:"真正的自信",s:1},
+{l:"B",t:"问过一次，当玩笑话",os:"好奇但不较真",s:2},
+{l:"C",t:"时不时拿出来问，你夸完他才满意",os:"需要反复确认",s:3},
+{l:"D",t:"经常问，你回答不满意就翻脸",os:"不定时炸弹",s:4}
+]},
+{q:"他发现你还留着前任送的东西（无感情意义的实用品），他？",os:"一件物品引发的血案",cat:"过去与前任",cls:"pa",opts:[
+{l:"A",t:"完全不介意，东西能用就行",os:"实用主义",s:1},
+{l:"B",t:"问了一句但你说没意义他就释然了",os:"问了，信了，过了",s:2},
+{l:"C",t:"让你扔掉，说看着不舒服",os:"前任的物品等于污染物",s:3},
+{l:"D",t:"认为你还留恋前任，大吵一架",os:"一件旧物等于一段旧情",s:4}
+]},
+{q:"朋友聚会有人不小心提起你以前的恋情，他？",os:"全场突然安静，气温骤降",cat:"过去与前任",cls:"pa",opts:[
+{l:"A",t:"不在意，还跟着笑",os:"格局",s:1},
+{l:"B",t:"有点尴尬但当场没说什么",os:"给足面子",s:2},
+{l:"C",t:"当场脸就黑了，聚会气氛降到冰点",os:"气氛破坏者",s:3},
+{l:"D",t:"当场发作，回家后和你大吵",os:"面子加旧账一起算",s:4}
+]},
+{q:"你玩游戏和男队友开麦交流战术，他？",os:"游戏里的男声等于现实中的情敌",cat:"综合行为",cls:"co",opts:[
+{l:"A",t:"无所谓，还问你战绩怎么样",os:"电子竞技不需要爱情",s:1},
+{l:"B",t:"在旁边听着但不打扰",os:"监听但不干预",s:2},
+{l:"C",t:"让你别和男的组队，找女生玩",os:"游戏也要男女隔离",s:3},
+{l:"D",t:"直接拔网线或者让你卸载游戏",os:"物理断联",s:4}
+]},
+{q:"你生日收到匿名花束，他？",os:"匿名等于最大不确定性等于最大威胁",cat:"综合行为",cls:"co",opts:[
+{l:"A",t:"开玩笑说\u201c我女朋友魅力真大\u201d",os:"自信且幽默",s:1},
+{l:"B",t:"陪你一起猜是谁送的",os:"当成一个有趣的谜题",s:2},
+{l:"C",t:"不太高兴，让你把花扔了",os:"花是无辜的但必须消失",s:3},
+{l:"D",t:"认定是你背着他和谁暧昧，严刑逼供",os:"一束花等于一场审讯",s:4}
+]},
+{q:"你们吵架冷战，你出门散心，他？",os:"冷战加出门等于对他的双重暴击",cat:"综合行为",cls:"co",opts:[
+{l:"A",t:"给你空间冷静，等你回来再聊",os:"成熟的处理方式",s:1},
+{l:"B",t:"过一会儿主动发消息缓和气氛",os:"主动破冰",s:2},
+{l:"C",t:"不停打电话发消息让你马上回来",os:"冷暴力转热暴力",s:3},
+{l:"D",t:"追出来不让你走，说今天不说清楚别想出门",os:"人身限制",s:4}
+]},
+{q:"你最要好的朋友是男生（认识比他还久），他能接受吗？",os:"男闺蜜Pro Max版",cat:"综合行为",cls:"co",opts:[
+{l:"A",t:"完全接受，还和他成了朋友",os:"顶级修养",s:1},
+{l:"B",t:"有点不自在但尊重，不干涉",os:"修养在线但内心有波澜",s:2},
+{l:"C",t:"经常暗示你疏远他",os:"温水煮青蛙式除名",s:3},
+{l:"D",t:"直接要求你在他和那个朋友之间选一个",os:"又是死亡二选一",s:4}
+]},
+{q:"如果用一句话总结他对你的态度，最接近哪句？",os:"终极一题，灵魂拷问",cat:"综合行为",cls:"co",opts:[
+{l:"A",t:"你是自由的，但我希望你选择我",os:"爱是尊重",s:1},
+{l:"B",t:"我很在乎你，但不会绑架你",os:"爱是克制",s:2},
+{l:"C",t:"你是我的，别人不能碰",os:"爱是占有",s:3},
+{l:"D",t:"没有我你什么都不是",os:"这不是爱，是控制",s:4}
+]}
+];
+
+var idx=0, ans=new Array(40).fill(null);
+var dims={
+  '社交边界':[0,1,2,3,4],
+  '穿着与外在':[5,6,7,8,9],
+  '手机与隐私':[10,11,12,13,14,15],
+  '社交媒体':[16,17,18,19,20],
+  '行踪与时间':[21,22,23,24,25],
+  '工作与事业':[26,27,28,29,30],
+  '过去与前任':[31,32,33,34],
+  '综合行为':[35,36,37,38,39]
+};
+
+function dimScores(){
+  var r={};
+  for(var k in dims){
+    var ids=dims[k], v=ids.filter(function(i){return ans[i]!==null});
+    r[k]=v.length?Math.round(v.reduce(function(s,i){return s+ans[i]},0)/v.length):0;
+  }
+  return r;
+}
+function total(){return ans.reduce(function(s,v){return s+(v||0)},0);}
+
+function grade(sc){
+  if(sc<=55) return{emoji:'\uD83D\uDD4A\uFE0F',lv:'佛系男友',sum:'你像在和自己谈恋爱，他是不是忘了还有个女朋友？他的字典里大概没有\u201c占有\u201d两个字。你自由得像一阵风，但偶尔也希望他能表现出一点点在乎。'};
+  if(sc<=75) return{emoji:'\uD83D\uDC9A',lv:'适度关心',sum:'松弛有度，这才是成年人该有的恋爱节奏。他在乎你但不控制你，关心你但不监视你。你们之间有信任、有空间、也有甜蜜。这是最健康的恋爱状态，请珍惜。'};
+  if(sc<=95) return{emoji:'\uD83D\uDC9B',lv:'轻度紧张',sum:'偶尔绷得太紧，但他大概率只是太喜欢你。有些小醋意是生活的调味剂，但如果某些行为已经让你感到不舒服，就是时候好好聊聊了。'};
+  if(sc<=120) return{emoji:'\uD83D\uDFE0',lv:'偏强占有',sum:'红色预警频闪，你的社交圈正在被他\u201c格式化\u201d。他的不安全感已经影响到你的正常生活。你会发现自己越来越不敢做真实的自己，因为怕他生气。'};
+  if(sc<=140) return{emoji:'\uD83D\uDD34',lv:'重度控制',sum:'你已经快没有自己的独立空间了，这很危险。你的手机、社交、穿着、行踪几乎都在他的掌控之下。这不是恋爱，是被圈养。'};
+  return{emoji:'\uD83D\uDC80',lv:'窒息式占有',sum:'你不是女朋友，你是他的私有财产。他的行为已经超出了吃醋的范畴，进入了情感控制的危险领域。你的安全和自由比任何爱情都重要。'};
+}
+
+function render(){
+  var q=questions[idx];
+  $('pf').style.width=((idx+1)/40*100)+'%';
+  $('pt').textContent=(idx+1)+' / 40';
+  $('ctag').textContent=q.cat;
+  $('ctag').className='ctag '+q.cls;
+  $('qt').textContent=q.q;
+  $('qos').textContent='（'+q.os+'）';
+  var cnt=$('ops'); cnt.innerHTML='';
+  q.opts.forEach(function(o,i){
+    var d=document.createElement('div');
+    d.className='op'+(ans[idx]===i?' sel':'');
+    d.innerHTML='<span class="ol">'+o.l+'.</span>'+o.t+'<span class="oos">'+o.os+'</span>';
+    d.onclick=function(){select(i)};
+    cnt.appendChild(d);
+  });
+  var soFar=total(), pct=soFar/160*100;
+  var tf=$('tf'); tf.style.width=pct+'%';
+  if(pct<30)tf.style.background='#48c774';
+  else if(pct<50)tf.style.background='#ffb347';
+  else if(pct<75)tf.style.background='#ff6b9d';
+  else tf.style.background='#ff3860';
+  $('btnPrev').style.display=idx>0?'inline-block':'none';
+  var bn=$('btnNext');
+  if(idx===39){bn.textContent='查看结果';bn.onclick=showResult;}
+  else{bn.textContent='下一题';bn.onclick=nextQ;}
+  bn.disabled=ans[idx]===null;
+  bn.style.opacity=ans[idx]===null?'0.5':'1';
+}
+function select(i){
+  ans[idx]=i;
+  var ops=document.querySelectorAll('.op');
+  ops.forEach(function(el,j){el.classList.toggle('sel',j===i)});
+  var soFar=total(), pct=soFar/160*100;
+  var tf=$('tf'); tf.style.width=pct+'%';
+  if(pct<30)tf.style.background='#48c774';
+  else if(pct<50)tf.style.background='#ffb347';
+  else if(pct<75)tf.style.background='#ff6b9d';
+  else tf.style.background='#ff3860';
+  setTimeout(function(){
+    if(idx===39)showResult();else nextQ();
+  },300);
+}
+function nextQ(){if(ans[idx]!==null&&idx<39){idx++;render()}}
+function prevQ(){if(idx>0){idx--;render()}}
+
+function showResult(){
+  if(ans[idx]===null)return;
+  $('quiz').classList.remove('on');
+  $('result').classList.add('on');
+  var sc=total(), g=grade(sc);
+  $('rg').textContent=g.emoji;
+  $('rl').textContent='你的男朋友：'+g.lv;
+  $('rs').textContent='得分 '+sc+' / 160（满分160）';
+  $('ryp').innerHTML='<strong>'+g.sum.split('。')[0]+'。</strong><br><br>'+g.sum;
+  var ds=dimScores();
+  var colors={'社交边界':'#3b82f6','穿着与外在':'#ec4899','手机与隐私':'#d97706','社交媒体':'#7c3aed','行踪与时间':'#dc2626','工作与事业':'#059669','过去与前任':'#be185d','综合行为':'#4f46e5'};
+  $('rd').innerHTML='<h3>各维度分析</h3>'+Object.keys(ds).map(function(k){
+    var v=ds[k], pct=Math.round(v/4*100);
+    return '<div class="db"><span class="dl">'+k+'</span><div class="dt"><div class="df" style="width:'+pct+'%;background:'+colors[k]+'"></div></div><span class="ds">'+v+'/4</span></div>';
+  }).join('');
+  setTimeout(drawRadar,200);
+}
+
+function drawRadar(){
+  var c=$('radar'),ctx=c.getContext('2d');
+  var sz=280;c.width=sz*2;c.height=sz*2;
+  var cx=sz,cy=sz,r=sz*0.6;
+  var ds=dimScores(),labels=Object.keys(ds),values=Object.values(ds);
+  var n=labels.length,step=Math.PI*2/n;
+  ctx.clearRect(0,0,sz*2,sz*2);
+  for(var lv=1;lv<=4;lv++){
+    ctx.beginPath();
+    for(var i=0;i<n;i++){
+      var a=-Math.PI/2+i*step,rr=r*lv/4;
+      var x=cx+rr*Math.cos(a),y=cy+rr*Math.sin(a);
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle=lv===4?'#e8d4e0':'#f0e4ec';ctx.lineWidth=1;ctx.stroke();
+    if(lv===4){
+      for(var j=0;j<n;j++){
+        var a2=-Math.PI/2+j*step;
+        var x2=cx+(r+14)*Math.cos(a2),y2=cy+(r+14)*Math.sin(a2);
+        ctx.fillStyle='#7c6f8c';ctx.font='bold 11px "PingFang SC","Microsoft YaHei",sans-serif';
+        ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(labels[j],x2,y2);
+      }
+    }
+  }
+  for(var k=0;k<n;k++){
+    var a3=-Math.PI/2+k*step;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a3),cy+r*Math.sin(a3));
+    ctx.strokeStyle='#f0e4ec';ctx.stroke();
+  }
+  ctx.beginPath();
+  for(var m=0;m<n;m++){
+    var a4=-Math.PI/2+m*step,rr2=r*values[m]/4;
+    var x3=cx+rr2*Math.cos(a4),y3=cy+rr2*Math.sin(a4);
+    if(m===0)ctx.moveTo(x3,y3);else ctx.lineTo(x3,y3);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(199,125,255,0.2)';ctx.fill();
+  ctx.strokeStyle='#c77dff';ctx.lineWidth=2.5;ctx.stroke();
+  for(var p=0;p<n;p++){
+    var a5=-Math.PI/2+p*step,rr3=r*values[p]/4;
+    var x4=cx+rr3*Math.cos(a5),y4=cy+rr3*Math.sin(a5);
+    ctx.beginPath();ctx.arc(x4,y4,5,0,Math.PI*2);
+    ctx.fillStyle='#c77dff';ctx.fill();
+    ctx.strokeStyle='white';ctx.lineWidth=2;ctx.stroke();
+  }
+}
+
+function shareRes(){
+  var sc=total(),g=grade(sc);
+  var lines=['你的男朋友占有欲测试','得分：'+sc+'/160','等级：'+g.lv+' '+g.emoji,'—',g.sum.split('。')[0]+'。'];
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){
+    alert('分享文本已复制到剪贴板！');
+  }).catch(function(){
+    alert('复制失败，请手动截图分享');
+  });
+}
+
+function $(id){return document.getElementById(id);}
+
+// 事件绑定
+$('btnStart').addEventListener('click',function(){
+  $('cover').style.display='none';
+  $('result').classList.remove('on');
+  $('quiz').classList.add('on');
+  idx=0;ans=new Array(40).fill(null);
+  render();
+});
+
+$('btnPrev').addEventListener('click',prevQ);
+$('btnRestart').addEventListener('click',function(){
+  $('result').classList.remove('on');
+  $('quiz').classList.add('on');
+  idx=0;ans=new Array(40).fill(null);
+  render();
+});
+$('btnShare').addEventListener('click',shareRes);
+
+// 键盘
+document.addEventListener('keydown',function(e){
+  if(!$('quiz').classList.contains('on'))return;
+  if(e.key>='1'&&e.key<='4')select(parseInt(e.key)-1);
+  else if(e.key==='ArrowLeft')prevQ();
+  else if(e.key==='ArrowRight'||e.key==='Enter'){
+    if(idx===39)showResult();else nextQ();
+  }
+});
+})();
+</script>
+</body>
+</html>
